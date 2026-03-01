@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### 個人情報関連 ###
+.src/main/resources/application.properties
+.src/main/resources/application-development.properties
+.src/main/resources/application-production.properties

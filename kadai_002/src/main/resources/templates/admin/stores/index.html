@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>店舗一覧</title>
+</head>
+
+<body>
+
+  <h1>店舗一覧</h1>
+
+  <!-- 検索フォーム -->
+  <form th:action="@{/admin/stores}" method="get">
+
+    検索
+    <input type="text" name="keyword" th:value="${keyword}">
+
+    並び替え
+    <select name="sort">
+
+      <option value="id" th:selected="${sort=='id'}">
+        ID
+      </option>
+
+      <option value="name" th:selected="${sort=='name'}">
+        店舗名
+      </option>
+
+    </select>
+
+    <button type="submit">
+      検索
+    </button>
+
+  </form>
+
+  <table border="1">
+
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>店舗名</th>
+        <th>住所</th>
+        <th>価格帯</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr th:each="store : ${stores}">
+        <td th:text="${store.id}"></td>
+        <td th:text="${store.name}"></td>
+        <td th:text="${store.address}"></td>
+        <td>
+          <span th:text="${store.minPrice}"></span> ~
+          <span th:text="${store.maxPrice}"></span>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+  <!-- ページネーション -->
+  <div>
+
+    <span th:if="${storePage.hasPrevious()}">
+      <a th:href="@{/admin/stores(page=${currentPage-1},keyword=${keyword},sort=${sort})}">
+        前へ
+      </a>
+    </span>
+
+    <span th:each="i : ${#numbers.sequence(0, storePage.totalPages-1)}">
+
+      <a th:href="@{/admin/stores(page=${i},keyword=${keyword},sort=${sort})}" th:text="${i+1}">
+      </a>
+
+    </span>
+
+    <span th:if="${storePage.hasNext()}">
+      <a th:href="@{/admin/stores(page=${currentPage+1},keyword=${keyword},sort=${sort})}">
+        次へ
+      </a>
+    </span>
+
+  </div>
+
+</body>
+
+</html>

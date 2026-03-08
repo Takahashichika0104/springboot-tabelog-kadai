@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>店舗編集</title>
+</head>
+
+<body>
+  <h1>店舗編集</h1>
+
+  <form th:action="@{/admin/stores/{id}/update(id=${store.id})}" th:object="${store}" method="post">
+
+    店舗名
+    <input type="text" th:field="*{name}">
+
+    住所
+    <input type="text" th:field="*{address}">
+
+    説明
+    <textarea th:field="*{description}"></textarea>
+
+    カテゴリ
+    <select th:field="*{category}">
+
+      <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+      </option>
+
+    </select>
+
+    <button type="submit">
+      更新
+    </button>
+
+  </form>
+
+  <a th:href="@{/admin/stores}">
+    戻る
+  </a>
+
+</body>
+
+</html>

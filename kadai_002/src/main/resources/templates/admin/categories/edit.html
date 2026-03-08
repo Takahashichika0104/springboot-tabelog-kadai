@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>カテゴリ編集</title>
+</head>
+
+<body>
+
+  <h1>カテゴリ編集</h1>
+
+  <form th:action="@{/admin/categories/{id}/update(id=${category.id})}" th:object="${category}" method="post">
+
+    カテゴリ名
+    <input type="text" th:field="*{name}">
+
+    <button type="submit">
+      更新
+    </button>
+
+  </form>
+
+  <a th:href="@{/admin/categories}">
+    戻る
+  </a>
+
+</body>
+
+</html>

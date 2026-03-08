@@ -41,6 +41,7 @@
       <tr>
         <th>ID</th>
         <th>店舗名</th>
+        <th>カテゴリ</th>
         <th>住所</th>
         <th>価格帯</th>
       </tr>
@@ -50,15 +51,32 @@
 
       <tr th:each="store : ${stores}">
         <td th:text="${store.id}"></td>
-        <td th:text="${store.name}"></td>
-        <td th:text="${store.address}"></td>
         <td>
-          <span th:text="${store.minPrice}"></span> ~
-          <span th:text="${store.maxPrice}"></span>
+          <a th:href="@{/admin/stores/{id}(id=${store.id})}" th:text="${store.name}">
+          </a>
         </td>
+        <td th:text="${store.category.name}"></td>
+        <td th:text="${store.address}"></td>
+
+        <td>
+
+          <a th:href="@{/admin/stores/{id}/edit(id=${store.id})}">
+            編集
+          </a>
+
+          <form th:action="@{/admin/stores/{id}/delete(id=${store.id})}" method="post" style="display:inline"
+            onsubmit="return confirm('この店舗を削除しますか？')">
+
+            <button type="submit">
+              削除
+            </button>
+
+          </form>
+
+        </td>
+
       </tr>
 
-    </tbody>
   </table>
 
 

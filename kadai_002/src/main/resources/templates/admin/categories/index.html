@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>カテゴリ一覧</title>
+</head>
+
+<body>
+
+  <h1>カテゴリ一覧</h1>
+
+  <a th:href="@{/admin/categories/create}">
+    カテゴリ登録
+  </a>
+
+  <form th:action="@{/admin/categories}" method="get">
+
+    検索
+    <input type="text" name="keyword" th:value="${keyword}">
+
+    並び替え
+    <select name="sort">
+
+      <option value="id" th:selected="${sort=='id'}">
+        ID
+      </option>
+
+      <option value="name" th:selected="${sort=='name'}">
+        カテゴリ名
+      </option>
+
+    </select>
+
+    <button type="submit">
+      検索
+    </button>
+
+  </form>
+
+  <table border="1">
+
+    <tr>
+      <th>ID</th>
+      <th>カテゴリ名</th>
+      <th>操作</th>
+    </tr>
+
+    <tr th:each="category : ${categories}">
+
+      <td th:text="${category.id}"></td>
+
+      <td th:text="${category.name}"></td>
+
+      <td>
+
+        <a th:href="@{/admin/categories/{id}/edit(id=${category.id})}">
+          編集
+        </a>
+
+        <form th:action="@{/admin/categories/{id}/delete(id=${category.id})}" method="post" style="display:inline"
+          onsubmit="return confirm('このカテゴリを削除しますか？')">
+
+          <button type="submit">
+            削除
+          </button>
+
+        </form>
+
+      </td>
+
+    </tr>
+
+  </table>
+
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>カテゴリ登録</title>
+</head>
+
+<body>
+
+  <h1>カテゴリ登録</h1>
+
+  <form th:action="@{/admin/categories}" th:object="${category}" method="post">
+
+    カテゴリ名
+    <input type="text" th:field="*{name}">
+
+    <button type="submit">
+      登録
+    </button>
+
+  </form>
+
+  <a th:href="@{/admin/categories}">
+    戻る
+  </a>
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>店舗詳細</title>
+</head>
+
+<body>
+
+  <h1>店舗詳細</h1>
+
+  <table border="1">
+
+    <tr>
+      <th>ID</th>
+      <td th:text="${store.id}"></td>
+    </tr>
+
+    <tr>
+      <th>店舗名</th>
+      <td th:text="${store.name}"></td>
+    </tr>
+
+    <tr>
+      <th>住所</th>
+      <td th:text="${store.address}"></td>
+    </tr>
+
+    <tr>
+      <th>説明</th>
+      <td th:text="${store.description}"></td>
+    </tr>
+
+    <tr>
+      <th>最低価格</th>
+      <td th:text="${store.minPrice}"></td>
+    </tr>
+
+    <tr>
+      <th>最高価格</th>
+      <td th:text="${store.maxPrice}"></td>
+    </tr>
+
+  </table>
+
+  <br>
+
+  <a th:href="@{/admin/stores/{id}/edit(id=${store.id})}">
+    編集
+  </a>
+
+  <form th:action="@{/admin/stores/{id}/delete(id=${store.id})}" method="post" style="display:inline"
+    onsubmit="return confirm('この店舗を削除しますか？')">
+
+    <button type="submit">
+      削除
+    </button>
+
+  </form>
+
+  <br><br>
+
+  <a th:href="@{/admin/stores}">
+    一覧に戻る
+  </a>
+
+</body>
+
+</html>

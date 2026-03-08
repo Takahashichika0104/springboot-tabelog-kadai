@@ -25,4 +25,19 @@ public class StoreService {
     // 検索
     return storeRepository.findByNameContaining(keyword, pageable);
   }
+
+   // 店舗登録・更新処理
+    public void save(Store store) {
+        storeRepository.save(store);
+    }
+
+    // 店舗詳細取得処理
+    public Store findById(Integer id) {
+        return storeRepository.findById(id).orElse(null);
+    }
+
+    // 店舗削除処理
+    public void delete(Integer id) {
+        storeRepository.deleteById(id);
+    }
 }

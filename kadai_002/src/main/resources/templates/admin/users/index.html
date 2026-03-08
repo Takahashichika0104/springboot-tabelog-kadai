@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>会員一覧</title>
+</head>
+
+<body>
+
+  <h1>会員一覧</h1>
+
+  <form th:action="@{/admin/users}" method="get">
+
+    メール検索
+    <input type="text" name="keyword" th:value="${keyword}">
+
+    <button type="submit">
+      検索
+    </button>
+
+  </form>
+
+  <table border="1">
+
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>メール</th>
+      <th>操作</th>
+    </tr>
+
+    <tr th:each="user : ${users}">
+
+      <td th:text="${user.id}"></td>
+
+      <td>
+        <a th:href="@{/admin/users/{id}(id=${user.id})}" th:text="${user.name}">
+        </a>
+      </td>
+
+      <td th:text="${user.email}"></td>
+
+      <td>
+
+        <a th:href="@{/admin/users/{id}/edit(id=${user.id})}">
+          編集
+        </a>
+
+      </td>
+
+    </tr>
+
+  </table>
+
+  </body>
+
+</html>

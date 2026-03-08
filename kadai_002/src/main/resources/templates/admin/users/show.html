@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>会員詳細</title>
+</head>
+
+<body>
+
+  <h1>会員詳細</h1>
+
+  <table border="1">
+
+    <tr>
+      <th>ID</th>
+      <td th:text="${user.id}"></td>
+    </tr>
+
+    <tr>
+      <th>名前</th>
+      <td th:text="${user.name}"></td>
+    </tr>
+
+    <tr>
+      <th>メール</th>
+      <td th:text="${user.email}"></td>
+    </tr>
+
+
+
+  </table>
+
+  <a th:href="@{/admin/users/{id}/edit(id=${user.id})}">
+    編集
+  </a>
+
+  <br><br>
+
+  <a th:href="@{/admin/users}">
+    一覧に戻る
+  </a>
+
+</body>
+
+</html>

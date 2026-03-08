@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>会員詳細</title>
+</head>
+
+<body>
+  <h1>会員編集</h1>
+
+  <form th:action="@{/admin/users/{id}/update(id=${user.id})}" th:object="${user}" method="post">
+
+    名前
+    <input type="text" th:field="*{name}">
+
+    メール
+    <input type="email" th:field="*{email}">
+
+
+
+    <button type="submit">
+      更新
+    </button>
+
+  </form>
+
+  <a th:href="@{/admin/users}">
+    戻る
+  </a>
+
+</body>
+
+</html>

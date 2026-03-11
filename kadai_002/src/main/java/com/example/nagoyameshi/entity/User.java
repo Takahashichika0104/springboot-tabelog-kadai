@@ -34,10 +34,8 @@ public class User {
     @Size(min = 8)
     private String password;
 
-    @NotBlank
     private String role;
 
-    @NotBlank
     private String membershipType;
 
     private LocalDateTime emailVerifiedAt;

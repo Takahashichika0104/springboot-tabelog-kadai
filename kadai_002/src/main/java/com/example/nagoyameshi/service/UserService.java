@@ -17,7 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    //ユーザー検索
+    // ユーザー検索
     public Page<User> search(String keyword, Pageable pageable) {
 
         if (keyword == null || keyword.isEmpty()) {
@@ -27,14 +27,21 @@ public class UserService {
         return userRepository.findByEmailContaining(keyword, pageable);
     }
 
-    //ユーザーIDで検索
+    // ユーザーIDで検索
     public User findById(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    //ユーザー保存
+    // ユーザー保存
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    // 会員登録
+    public void register(User user) {
+
+        userRepository.save(user);
+
     }
 
 }

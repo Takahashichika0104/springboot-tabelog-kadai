@@ -13,44 +13,43 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http
+                http
 
-        // ★変更
-        .formLogin(login -> login
-                .loginPage("/login")        // カスタムログイン画面
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-        )
+                                // ★変更
+                                .formLogin(login -> login
+                                                .loginPage("/login") // カスタムログイン画面
+                                                .loginProcessingUrl("/login")
+                                                .defaultSuccessUrl("/", true)
+                                                .permitAll())
 
-        .logout(logout -> logout
-                .logoutSuccessUrl("/login")
-        )
+                                .logout(logout -> logout
+                                                .logoutSuccessUrl("/login"))
 
-        .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                        "/",
-                        "/login",
-                        "/register",
-                        "/css/**",
-                        "/images/**"
-                ).permitAll()
-                .anyRequest().authenticated()
-        );
+                                .authorizeHttpRequests(auth -> auth
+                                                .requestMatchers(
+                                                                "/",
+                                                                "/login",
+                                                                "/register",
+                                                                "/css/**",
+                                                                "/images/**")
+                                                .permitAll()
 
-        return http.build();
-    }
+                                                .requestMatchers("/admin/**").hasRole("ADMIN")
 
-    /*
-     ★追加
-     パスワード暗号化
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
-    }
+                                                .requestMatchers("/user/**").hasRole("USER")
+
+                                                .anyRequest().authenticated());
+
+                return http.build();
+        }
+
+        // パスワード暗号化なし（開発用）
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return NoOpPasswordEncoder.getInstance();
+        }
 
 }

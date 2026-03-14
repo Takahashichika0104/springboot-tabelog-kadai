@@ -1,0 +1,49 @@
+<h1>店舗一覧</h1>
+
+<form method="get">
+
+  店舗名
+  <input type="text" name="keyword" th:value="${keyword}">
+
+  カテゴリ
+
+  <select name="categoryId">
+
+    <option value="">すべて</option>
+
+    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}">
+    </option>
+
+  </select>
+
+  予算
+
+  <input type="number" name="priceMin">
+  〜
+  <input type="number" name="priceMax">
+
+  <button type="submit">
+    検索
+  </button>
+
+</form>
+
+<hr>
+
+<div th:each="store : ${stores.content}">
+
+  <h3 th:text="${store.name}"></h3>
+
+  <p th:text="${store.address}"></p>
+
+  <p>
+
+    ¥ <span th:text="${store.minPrice + '〜' + store.maxPrice}"></span>
+
+  </p>
+
+  <a th:href="@{/stores/{id}(id=${store.id})}">
+    詳細
+  </a>
+
+</div>

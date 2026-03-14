@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class StoreService {
-  
+
   private final StoreRepository storeRepository;
 
   public StoreService(StoreRepository storeRepository) {
@@ -25,6 +25,23 @@ public class StoreService {
 
     // 検索
     return storeRepository.findByNameContaining(keyword, pageable);
+  }
+
+  // 店舗検索（キーワード + カテゴリ + 価格帯）
+  public Page<Store> search(
+      String keyword,
+      Integer categoryId,
+      Integer priceMin,
+      Integer priceMax,
+      Pageable pageable) {
+
+    return storeRepository.searchStores(
+        keyword,
+        categoryId,
+        priceMin,
+        priceMax,
+        pageable);
+
   }
 
   // 店舗登録・更新処理

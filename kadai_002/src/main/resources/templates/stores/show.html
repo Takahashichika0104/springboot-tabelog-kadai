@@ -1,0 +1,42 @@
+<h1 th:text="${store.name}"></h1>
+
+<p th:text="${store.description}"></p>
+
+<p>
+
+  住所:
+  <span th:text="${store.address}"></span>
+
+</p>
+
+<p>
+
+  価格帯:
+  ¥ <span th:text="${store.minPrice + '円〜' + store.maxPrice + '円'}"></span>
+
+
+</p>
+
+<hr>
+
+<h2>レビュー</h2>
+
+<table>
+
+  <tr>
+    <th>ユーザー</th>
+    <th>評価</th>
+    <th>コメント</th>
+  </tr>
+
+  <tr th:each="review : ${reviews}">
+
+    <td th:text="${review.user.name}"></td>
+
+    <td th:text="${review.score}"></td>
+
+    <td th:text="${review.comment}"></td>
+
+  </tr>
+
+</table>

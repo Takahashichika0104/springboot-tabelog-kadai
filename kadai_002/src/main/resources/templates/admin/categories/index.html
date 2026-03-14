@@ -32,6 +32,9 @@
 
     </select>
 
+    <!-- ページ指定（検索・並び替え時は先頭に戻す） -->
+    <input type="hidden" name="page" value="0">
+
     <button type="submit">
       検索
     </button>
@@ -72,6 +75,25 @@
     </tr>
 
   </table>
+
+  <!-- ページング -->
+  <div>
+    <span th:text="'ページ ' + (${categories.number}+1) + ' / ' + ${categories.totalPages}"></span>
+
+    <span th:if="${categories.hasPrevious()}">
+      <a th:href="@{/admin/categories(keyword=${keyword},sort=${sort},page=${categories.number-1})}">前へ</a>
+    </span>
+
+    <span th:if="${categories.hasNext()}">
+      <a th:href="@{/admin/categories(keyword=${keyword},sort=${sort},page=${categories.number+1})}">次へ</a>
+    </span>
+
+    <span th:each="i : ${#numbers.sequence(0, categories.totalPages-1)}">
+      <a th:href="@{/admin/categories(keyword=${keyword},sort=${sort},page=${i})}"
+         th:text="${i+1}"
+         th:classappend="${i==categories.number} ? 'current' : ''"></a>
+    </span>
+  </div>
 
 </body>
 

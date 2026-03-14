@@ -37,10 +37,10 @@ public class AdminCategoryController {
 
         Pageable pageable = PageRequest.of(page, 5, Sort.by(sort));
 
-        Page<Category> categoryPage =
-                categoryService.search(keyword, pageable);
+        Page<Category> categoryPage = categoryService.search(keyword, pageable);
 
-        model.addAttribute("categories", categoryPage.getContent());
+        model.addAttribute("categories", categoryPage);
+
         model.addAttribute("categoryPage", categoryPage);
 
         model.addAttribute("keyword", keyword);
@@ -103,7 +103,7 @@ public class AdminCategoryController {
         return "redirect:/admin/categories";
     }
 
-    //カテゴリー削除処理
+    // カテゴリー削除処理
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Integer id) {
 

@@ -10,6 +10,10 @@
 
   <h1>店舗一覧</h1>
 
+  <a th:href="@{/admin/stores/create}">
+    店舗登録
+  </a>
+
   <!-- 検索フォーム -->
   <form th:action="@{/admin/stores}" method="get">
 
@@ -44,6 +48,7 @@
         <th>カテゴリ</th>
         <th>住所</th>
         <th>価格帯</th>
+        <th>機能</th>
       </tr>
     </thead>
 
@@ -57,6 +62,7 @@
         </td>
         <td th:text="${store.category.name}"></td>
         <td th:text="${store.address}"></td>
+        <td th:text="${store.minPrice} + '～' + ${store.maxPrice}"></td>
 
         <td>
 

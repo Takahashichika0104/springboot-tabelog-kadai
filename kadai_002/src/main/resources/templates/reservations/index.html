@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>予約一覧</title>
+</head>
+
+<body>
+
+  <h2>予約一覧</h2>
+
+  <table>
+
+    <tr>
+      <th>店舗</th>
+      <th>日時</th>
+      <th>人数</th>
+    </tr>
+
+    <tr th:each="reservation : ${reservations}">
+      <td th:text="${reservation.store.name}"></td>
+      <td th:text="${reservation.reservedAt}"></td>
+      <td th:text="${reservation.numberOfPeople}"></td>
+    </tr>
+
+  </table>
+
+</body>
+
+</html>

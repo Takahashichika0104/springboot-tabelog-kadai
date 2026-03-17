@@ -3,7 +3,7 @@ package com.example.nagoyameshi.controller;
 import com.example.nagoyameshi.service.StoreService;
 import com.example.nagoyameshi.service.CategoryService;
 import com.example.nagoyameshi.service.ReviewService;
-
+import com.example.nagoyameshi.entity.Reservation;
 import com.example.nagoyameshi.entity.Store;
 
 import org.springframework.data.domain.Page;
@@ -72,6 +72,11 @@ public class StoreController {
     Store store = storeService.findById(id);
 
     model.addAttribute("store", store);
+    // ★予約オブジェクト作成
+    Reservation reservation = new Reservation();
+    reservation.setStore(store); // ★店舗をセット
+
+    model.addAttribute("reservation", reservation);
 
     // レビュー一覧
     model.addAttribute(

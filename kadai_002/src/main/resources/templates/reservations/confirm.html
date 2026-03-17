@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>予約確認</title>
+</head>
+
+<body>
+
+  <h2>予約確認</h2>
+
+  <p>店舗：<span th:text="${reservation.store.name}"></span></p>
+
+  <p>日時：<span th:text="${reservation.reservedAt}"></span></p>
+
+  <p>人数：<span th:text="${reservation.numberOfPeople}"></span></p>
+
+  <form th:action="@{/reservations/create}" method="post" th:object="${reservation}">
+
+    <input type="hidden" th:field="*{store.id}">
+    <input type="hidden" th:field="*{reservedAt}">
+    <input type="hidden" th:field="*{numberOfPeople}">
+
+    <button type="submit">予約確定</button>
+
+  </form>
+
+</body>
+
+</html>

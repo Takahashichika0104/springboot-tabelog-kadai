@@ -1,42 +1,91 @@
-<h1 th:text="${store.name}"></h1>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 
-<p th:text="${store.description}"></p>
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${store.name}"></title>
+</head>
 
-<p>
+<body>
 
-  住所:
-  <span th:text="${store.address}"></span>
+  <h1 th:text="${store.name}"></h1>
 
-</p>
+  <p th:text="${store.description}"></p>
 
-<p>
+  <p>
 
-  価格帯:
-  ¥ <span th:text="${store.minPrice + '円〜' + store.maxPrice + '円'}"></span>
+    住所:
+    <span th:text="${store.address}"></span>
+
+  </p>
+
+  <p>
+
+    価格帯:
+    ¥ <span th:text="${store.minPrice + '円〜' + store.maxPrice + '円'}"></span>
 
 
-</p>
+  </p>
 
-<hr>
 
-<h2>レビュー</h2>
 
-<table>
 
-  <tr>
-    <th>ユーザー</th>
-    <th>評価</th>
-    <th>コメント</th>
-  </tr>
+  <br><br>
 
-  <tr th:each="review : ${reviews}">
+  <h3>予約</h3>
 
-    <td th:text="${review.user.name}"></td>
+  <div th:if="${#authentication.principal.user.membershipType == 'PREMIUM'}">
 
-    <td th:text="${review.score}"></td>
+    <form th:action="@{/reservations/confirm}" method="post" th:object="${reservation}">
 
-    <td th:text="${review.comment}"></td>
+      <input type="hidden" th:field="*{store.id}" th:value="${store.id}">
 
-  </tr>
+      <div>
+        <label>予約日時</label>
+        <input type="datetime-local" th:field="*{reservedAt}">
+      </div>
 
-</table>
+      <div>
+        <label>人数</label>
+        <input type="number" th:field="*{numberOfPeople}">
+      </div>
+
+      <button type="submit">予約確認</button>
+
+    </form>
+
+  </div>
+
+  <div th:unless="${#authentication.principal.user.membershipType == 'PREMIUM'}">
+
+    <p>予約するにはプレミアム会員になる必要があります</p>
+
+  </div>
+
+  <hr>
+
+  <h2>レビュー</h2>
+
+  <table>
+
+    <tr>
+      <th>ユーザー</th>
+      <th>評価</th>
+      <th>コメント</th>
+    </tr>
+
+    <tr th:each="review : ${reviews}">
+
+      <td th:text="${review.user.name}"></td>
+
+      <td th:text="${review.score}"></td>
+
+      <td th:text="${review.comment}"></td>
+
+    </tr>
+
+  </table>
+
+</body>
+
+</html>

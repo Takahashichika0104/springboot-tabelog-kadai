@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +21,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     @NotNull
     private LocalDateTime reservedAt;
 
@@ -27,7 +29,6 @@ public class Reservation {
     @Min(1)
     private Integer numberOfPeople;
 
-    @NotBlank
     private String status;
 
     @CreationTimestamp

@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <title>予約一覧</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -16,15 +19,66 @@
       <th>店舗</th>
       <th>日時</th>
       <th>人数</th>
+      <th>機能</th>
     </tr>
 
     <tr th:each="reservation : ${reservations}">
       <td th:text="${reservation.store.name}"></td>
       <td th:text="${reservation.reservedAt}"></td>
       <td th:text="${reservation.numberOfPeople}"></td>
+      <td>
+        <!-- data-bs-targetの書き方  -->
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+          th:attr="data-bs-target='#cancelReservationModal' + ${reservation.id}">
+          キャンセル
+        </button>
+      </td>
     </tr>
 
   </table>
+
+  <!--  修正：モーダルはループ外に出す  -->
+  <div th:each="reservation : ${reservations}">
+    <div class="modal fade" th:id="'cancelReservationModal' + ${reservation.id}" tabindex="-1"
+      th:attr="aria-labelledby='modalLabel' + ${reservation.id}" aria-hidden="true">
+
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <!--  修正：idをユニークに  -->
+            <h5 class="modal-title" th:id="'modalLabel' + ${reservation.id}">
+              予約キャンセル確認
+            </h5>
+
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <p th:text="${reservation.store.name} + 'の予約をキャンセルしてもよろしいですか？'"></p>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              閉じる
+            </button>
+
+            <form th:action="@{/reservations/{id}/cancel(id=${reservation.id})}" method="post">
+              <button type="submit" class="btn btn-danger">
+                キャンセル
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </td>
+    </tr>
+
+    </table>
+
+    <!--  追加：Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

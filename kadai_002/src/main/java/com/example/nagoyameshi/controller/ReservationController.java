@@ -6,6 +6,7 @@ import com.example.nagoyameshi.entity.User;
 import com.example.nagoyameshi.security.CustomUserDetails;
 import com.example.nagoyameshi.service.ReservationService;
 import com.example.nagoyameshi.service.StoreService;
+import com.example.nagoyameshi.repository.ReservationRepository;
 
 import jakarta.validation.Valid;
 
@@ -23,12 +24,14 @@ public class ReservationController {
 
   private final ReservationService reservationService;
   private final StoreService storeService;
+  private final ReservationRepository reservationRepository;
 
   public ReservationController(
       ReservationService reservationService,
-      StoreService storeService) {
+      StoreService storeService, ReservationRepository reservationRepository) {
 
     this.reservationService = reservationService;
+    this.reservationRepository = reservationRepository;
     this.storeService = storeService;
   }
 
@@ -69,6 +72,8 @@ public class ReservationController {
       @ModelAttribute Reservation reservation,
       @AuthenticationPrincipal CustomUserDetails userDetails) {
 
+    reservation.setStatus("予約済");
+
     User user = userDetails.getUser();
 
     // membership_typeを確認
@@ -89,12 +94,28 @@ public class ReservationController {
       @AuthenticationPrincipal CustomUserDetails userDetails,
       Model model) {
 
+    // ログインユーザー取得
     User user = userDetails.getUser();
 
-    List<Reservation> reservations = reservationService.findByUser(user);
+    // キャンセル済を除外
+    List<Reservation> reservations = reservationService.findActiveByUser(user);
 
     model.addAttribute("reservations", reservations);
 
     return "reservations/index";
   }
+
+  // 予約キャンセル処理
+  @PostMapping("/{id}/cancel")
+  public String cancel(@PathVariable Integer id,
+      @AuthenticationPrincipal CustomUserDetails userDetails) {
+
+    Reservation reservation = reservationService.findById(id);
+
+    reservation.setStatus("キャンセル済");
+    reservationService.save(reservation);
+
+    return "redirect:/reservations";
+  }
+
 }

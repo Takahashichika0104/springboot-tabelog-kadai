@@ -26,4 +26,12 @@ public class ReservationService {
     public List<Reservation> findByUser(User user) {
         return reservationRepository.findByUser(user);
     }
+
+    public Reservation findById(Integer id) {
+        return reservationRepository.findById(id).orElse(null);
+    }
+
+    public List<Reservation> findActiveByUser(User user) {
+        return reservationRepository.findByUserAndStatusNot(user, "キャンセル済");
+    }
 }

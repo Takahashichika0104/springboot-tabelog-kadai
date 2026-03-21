@@ -78,6 +78,20 @@
 
   <h2>レビュー</h2>
 
+  <!-- レビュー投稿ボタン -->
+
+  <div th:if="${#authentication.principal.user.membershipType == 'PREMIUM'}">
+
+    <a th:href="@{/reviews/create/{id}(id=${store.id})}">
+      レビューを投稿する
+    </a>
+
+  </div>
+
+  <div th:unless="${#authentication.principal.user.membershipType == 'PREMIUM'}">
+    <p>レビュー投稿はプレミアム会員限定です</p>
+  </div>
+
   <table>
 
     <tr>
@@ -90,7 +104,7 @@
 
       <td th:text="${review.user.name}"></td>
 
-      <td th:text="${review.score}"></td>
+      <td th:text="${review.rating}"></td>
 
       <td th:text="${review.comment}"></td>
 

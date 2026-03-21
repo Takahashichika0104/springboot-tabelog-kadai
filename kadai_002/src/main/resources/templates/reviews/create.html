@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>レビュー投稿</title>
+</head>
+<body>
+
+<h2 th:text="${store.name} + ' のレビュー投稿'"></h2>
+
+<form th:action="@{/reviews/create}" method="post"
+      th:object="${review}">
+
+    <input type="hidden" th:field="*{store.id}">
+
+    <div>
+        <label>評価（1〜5）</label>
+        <input type="number" th:field="*{rating}" min="1" max="5">
+    </div>
+
+    <div>
+        <label>コメント</label>
+        <textarea th:field="*{comment}"></textarea>
+    </div>
+
+    <button type="submit">投稿</button>
+
+</form>
+
+</body>
+</html>

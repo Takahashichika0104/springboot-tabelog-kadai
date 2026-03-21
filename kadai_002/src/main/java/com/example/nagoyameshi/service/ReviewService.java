@@ -16,6 +16,11 @@ public class ReviewService {
         this.reviewRepository = reviewRepository;
     }
 
+    //投稿
+    public void save(Review review) {
+        reviewRepository.save(review);
+    }
+
     //店舗レビュー取得
     public List<Review> findByStore(Integer storeId) {
 

@@ -28,4 +28,14 @@ public class ReviewService {
 
     }
 
+    //レビューを取得
+    public Review findById(Integer id) {
+        return reviewRepository.findById(id).orElseThrow();
+    }
+
+    //レビュー削除
+    public void delete(Integer id) {
+        reviewRepository.deleteById(id);
+    }
+
 }

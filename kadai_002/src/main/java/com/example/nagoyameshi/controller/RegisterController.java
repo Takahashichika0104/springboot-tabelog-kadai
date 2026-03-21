@@ -51,6 +51,9 @@ public class RegisterController {
       return "auth/register";
     }
 
+    user.setRole("USER");
+    user.setMembershipType("FREE");
+
     log.info("Validation passed, setting default values");
     
     try {

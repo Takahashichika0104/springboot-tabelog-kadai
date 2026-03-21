@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>マイページ</title>
+</head>
+
+<body>
+
+<h1>会員情報</h1>
+
+<table border="1">
+
+    <tr>
+        <th>名前</th>
+        <td th:text="${user.name}"></td>
+    </tr>
+
+    <tr>
+        <th>メールアドレス</th>
+        <td th:text="${user.email}"></td>
+    </tr>
+
+    <tr>
+        <th>会員種別</th>
+        <td th:text="${user.membershipType}"></td>
+    </tr>
+
+</table>
+
+<br>
+
+<a th:href="@{/}">トップへ戻る</a>
+
+</body>
+</html>

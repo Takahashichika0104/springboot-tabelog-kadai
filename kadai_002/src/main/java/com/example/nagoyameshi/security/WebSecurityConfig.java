@@ -37,6 +37,8 @@ public class WebSecurityConfig {
                                                                 "/images/**")
                                                 .permitAll()
 
+                                                .requestMatchers("/mypage").authenticated()
+
                                                 .requestMatchers("/admin/**").hasRole("ADMIN")
 
                                                 .requestMatchers("/user/**").hasRole("USER")

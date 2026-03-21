@@ -1,10 +1,12 @@
 package com.example.nagoyameshi.controller;
 
+import com.example.nagoyameshi.service.FavoriteService;
 import com.example.nagoyameshi.service.StoreService;
 import com.example.nagoyameshi.service.CategoryService;
 import com.example.nagoyameshi.service.ReviewService;
 import com.example.nagoyameshi.entity.Reservation;
 import com.example.nagoyameshi.entity.Store;
+import com.example.nagoyameshi.security.CustomUserDetails;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,10 +18,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Controller
 public class StoreController {
 
+  private final FavoriteService favoriteService;
   private final StoreService storeService;
   private final CategoryService categoryService;
   private final ReviewService reviewService;
@@ -27,11 +32,12 @@ public class StoreController {
   public StoreController(
       StoreService storeService,
       CategoryService categoryService,
-      ReviewService reviewService) {
+      ReviewService reviewService, FavoriteService favoriteService) {
 
     this.storeService = storeService;
     this.categoryService = categoryService;
     this.reviewService = reviewService;
+    this.favoriteService = favoriteService;
   }
 
   // 店舗一覧
@@ -67,11 +73,19 @@ public class StoreController {
   @GetMapping("/stores/{id}")
   public String show(
       @PathVariable Integer id,
+      @AuthenticationPrincipal CustomUserDetails userDetails,
       Model model) {
 
     Store store = storeService.findById(id);
 
     model.addAttribute("store", store);
+
+    if (userDetails != null) {
+      boolean isFavorite = favoriteService.isFavorite(
+          userDetails.getUser(), store);
+      model.addAttribute("isFavorite", isFavorite);
+    }
+
     // ★予約オブジェクト作成
     Reservation reservation = new Reservation();
     reservation.setStore(store); // ★店舗をセット

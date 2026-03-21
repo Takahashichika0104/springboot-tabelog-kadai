@@ -10,6 +10,18 @@
 
   <h1 th:text="${store.name}"></h1>
 
+  <!-- お気に入りボタン -->
+  <form th:action="@{/favorites/toggle/{id}(id=${store.id})}" method="post">
+
+    <button type="submit" style="font-size: 24px; border: none; background: none;">
+
+      <span th:if="${isFavorite}">❤️</span>
+      <span th:unless="${isFavorite}">🤍</span>
+
+    </button>
+
+  </form>
+
   <p th:text="${store.description}"></p>
 
   <p>

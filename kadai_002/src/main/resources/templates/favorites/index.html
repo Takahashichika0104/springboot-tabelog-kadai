@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>お気に入り一覧</title>
+</head>
+<body>
+
+<h2>お気に入り一覧</h2>
+
+<table>
+    <tr>
+        <th>店舗名</th>
+        <th>詳細</th>
+    </tr>
+
+    <tr th:each="favorite : ${favoritePage.content}">
+        <td th:text="${favorite.store.name}"></td>
+        <td>
+            <a th:href="@{/stores/{id}(id=${favorite.store.id})}">
+                詳細
+            </a>
+        </td>
+    </tr>
+</table>
+
+<!-- ページネーション -->
+<div>
+    <a th:if="${favoritePage.hasPrevious()}"
+       th:href="@{/favorites(page=${favoritePage.number - 1})}">
+        前へ
+    </a>
+
+    <span th:text="${favoritePage.number + 1}"></span>
+
+    <a th:if="${favoritePage.hasNext()}"
+       th:href="@{/favorites(page=${favoritePage.number + 1})}">
+        次へ
+    </a>
+</div>
+
+</body>
+</html>

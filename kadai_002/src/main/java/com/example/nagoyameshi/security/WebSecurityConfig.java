@@ -41,6 +41,8 @@ public class WebSecurityConfig {
 
                                                 .requestMatchers("/user/**").hasRole("USER")
 
+                                                .requestMatchers("/favorites/**").authenticated()
+
                                                 .anyRequest().authenticated());
 
                 return http.build();

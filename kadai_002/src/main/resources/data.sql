@@ -19,16 +19,16 @@ VALUES
 (11,'カレー専門店','スパイスカレー','東京都秋葉原11-11-11',900,2000,'curry.jpg',1,NOW(),NOW());
 
 -- 会員のサンプルデータ
-INSERT IGNORE INTO users (name, email, password, role, membership_type, email_verified_at, created_at, updated_at)
+INSERT IGNORE INTO users (name, email, password, role, membership_type, enabled, created_at, updated_at)
 VALUES
-('山田太郎', 'taro.yamada@example.com', 'password123', 'USER', 'FREE', NULL, NOW(), NOW()),
-('鈴木花子', 'hanako.suzuki@example.com', 'password123', 'USER', 'PREMIUM', NOW(), NOW(), NOW()),
-('佐藤次郎', 'jiro.sato@example.com', 'password123', 'USER', 'FREE', NULL, NOW(), NOW()),
-('田中美咲', 'misaki.tanaka@example.com', 'password123', 'USER', 'PREMIUM', NOW(), NOW(), NOW()),
-('高橋健一', 'kenichi.takahashi@example.com', 'password123', 'USER', 'FREE', NULL, NOW(), NOW()),
-('伊藤彩', 'aya.ito@example.com', 'password123', 'USER', 'PREMIUM', NOW(), NOW(), NOW()),
-('渡辺直樹', 'naoki.watanabe@example.com', 'password123', 'USER', 'FREE', NULL, NOW(), NOW()),
-('中村優子', 'yuko.nakamura@example.com', 'password123', 'USER', 'PREMIUM', NOW(), NOW(), NOW()),
-('小林太郎', 'taro.kobayashi@example.com', 'password123', 'USER', 'FREE', NULL, NOW(), NOW()),
-('加藤美香', 'mika.kato@example.com', 'password123', 'ADMIN', 'PREMIUM', NOW(), NOW(), NOW()),
-('吉田浩', 'hiroshi.yoshida@example.com', 'password123', 'USER', 'FREE', NULL, NOW(), NOW());
+('山田太郎', 'taro.yamada@example.com', 'password123', 'USER', 'FREE', TRUE, NOW(), NOW()),
+('鈴木花子', 'hanako.suzuki@example.com', 'password123', 'USER', 'PREMIUM', TRUE, NOW(), NOW()),
+('佐藤次郎', 'jiro.sato@example.com', 'password123', 'USER', 'FREE', TRUE, NOW(), NOW()),
+('田中美咲', 'misaki.tanaka@example.com', 'password123', 'USER', 'PREMIUM', TRUE, NOW(), NOW()),
+('高橋健一', 'kenichi.takahashi@example.com', 'password123', 'USER', 'FREE', TRUE, NOW(), NOW()),
+('伊藤彩', 'aya.ito@example.com', 'password123', 'USER', 'PREMIUM', TRUE, NOW(), NOW()),
+('渡辺直樹', 'naoki.watanabe@example.com', 'password123', 'USER', 'FREE', TRUE, NOW(), NOW()),
+('中村優子', 'yuko.nakamura@example.com', 'password123', 'USER', 'PREMIUM', TRUE, NOW(), NOW()),
+('小林太郎', 'taro.kobayashi@example.com', 'password123', 'USER', 'FREE', TRUE, NOW(), NOW()),
+('加藤美香', 'mika.kato@example.com', 'password123', 'ADMIN', 'PREMIUM', TRUE, NOW(), NOW()),
+('吉田浩', 'hiroshi.yoshida@example.com', 'password123', 'USER', 'FREE', TRUE, NOW(), NOW());

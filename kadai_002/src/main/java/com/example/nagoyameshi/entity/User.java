@@ -38,7 +38,7 @@ public class User {
 
     private String membershipType;
 
-    private LocalDateTime emailVerifiedAt;
+    private Boolean enabled;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

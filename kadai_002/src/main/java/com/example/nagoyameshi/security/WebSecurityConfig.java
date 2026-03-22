@@ -32,7 +32,7 @@ public class WebSecurityConfig {
                                                 .requestMatchers(
                                                                 "/",
                                                                 "/login",
-                                                                "/register",
+                                                                "/register/**",
                                                                 "/css/**",
                                                                 "/images/**")
                                                 .permitAll()

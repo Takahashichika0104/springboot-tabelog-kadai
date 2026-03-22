@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -44,4 +45,10 @@ public class UserService {
 
     }
 
+    // ユーザーを有効にする
+    @Transactional
+    public void enableUser(User user) {
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
 }

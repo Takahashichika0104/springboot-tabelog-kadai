@@ -24,14 +24,11 @@ public class ReservationController {
 
   private final ReservationService reservationService;
   private final StoreService storeService;
-  private final ReservationRepository reservationRepository;
-
   public ReservationController(
       ReservationService reservationService,
       StoreService storeService, ReservationRepository reservationRepository) {
 
     this.reservationService = reservationService;
-    this.reservationRepository = reservationRepository;
     this.storeService = storeService;
   }
 

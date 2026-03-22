@@ -33,6 +33,19 @@ public class UserController {
     this.signupEventPublisher = signupEventPublisher;
   }
 
+  // 会員メニューページ
+  @GetMapping("/member-menu")
+  public String memberMenu(
+      @AuthenticationPrincipal CustomUserDetails userDetails,
+      Model model) {
+
+    User user = userService.findById(userDetails.getUser().getId());
+
+    model.addAttribute("user", user);
+
+    return "users/menu";
+  }
+
   // 会員情報確認ページ
 
   @GetMapping("/mypage")

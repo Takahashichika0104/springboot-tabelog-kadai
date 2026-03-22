@@ -39,6 +39,12 @@ public class WebSecurityConfig {
 
                                                 .requestMatchers("/mypage").authenticated()
 
+                                                .requestMatchers("/member-menu").authenticated()
+
+                                                .requestMatchers("/membership/**").authenticated()
+
+                                                .requestMatchers("/credit-card/**").authenticated()
+
                                                 .requestMatchers("/admin/**").hasRole("ADMIN")
 
                                                 .requestMatchers("/user/**").hasRole("USER")

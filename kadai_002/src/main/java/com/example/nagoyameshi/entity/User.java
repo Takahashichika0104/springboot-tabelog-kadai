@@ -38,6 +38,10 @@ public class User {
 
     private String membershipType;
 
+    private String stripeCustomerId;
+
+    private String stripeSubscriptionId;
+
     private Boolean enabled;
 
     @CreationTimestamp

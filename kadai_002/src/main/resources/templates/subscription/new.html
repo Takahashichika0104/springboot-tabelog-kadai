@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>有料会員登録</title>
+</head>
+
+<body>
+
+  <h1>有料会員登録</h1>
+
+  <div th:if="${errorMessage}" style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
+    <p th:text="${errorMessage}"></p>
+  </div>
+
+  <p>有料会員（プレミアム）に登録すると、予約やレビュー投稿などの機能をご利用いただけます。</p>
+
+  <p>月額料金：¥300（税込）</p>
+
+  <form th:action="@{/membership/checkout}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <button type="submit">有料会員になる（Stripeで決済）</button>
+  </form>
+
+  <br>
+  <a th:href="@{/member-menu}">会員メニューへ戻る</a>
+
+</body>
+
+</html>

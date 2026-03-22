@@ -41,8 +41,12 @@ CREATE TABLE IF NOT EXISTS users (
     membership_type VARCHAR(20) DEFAULT 'FREE',
     enabled BOOLEAN NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    stripe_customer_id VARCHAR(255),
+    stripe_subscription_id VARCHAR(255)
 );
+
+
 
 -- =========================
 -- クレジットカード

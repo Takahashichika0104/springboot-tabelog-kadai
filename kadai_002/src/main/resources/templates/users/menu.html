@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <title>会員メニュー</title>
+</head>
+
+<body>
+
+  <h1>会員メニュー</h1>
+
+  <ul>
+
+    <li>
+      <a th:href="@{/mypage}">会員情報確認</a>
+    </li>
+
+    <li>
+      <a th:href="@{/users/edit}">会員情報編集</a>
+    </li>
+
+    <!-- 無料会員の場合：有料会員登録リンクを表示 -->
+    <li th:if="${user.membershipType == 'FREE'}">
+      <a th:href="@{/membership}">有料会員登録（Stripe）</a>
+    </li>
+
+    <!-- 有料会員の場合：解約とカード情報編集リンクを表示 -->
+    <li th:if="${user.membershipType == 'PREMIUM'}">
+      <a th:href="@{/membership/cancel}">有料会員解約（Stripe）</a>
+    </li>
+
+    <li th:if="${user.membershipType == 'PREMIUM'}">
+      <a th:href="@{/credit-card/edit}">クレジットカード情報編集（Stripe）</a>
+    </li>
+
+    <li>
+      <a th:href="@{/reservations}">予約一覧</a>
+    </li>
+
+    <li>
+      <a th:href="@{/favorites}">お気に入り一覧</a>
+    </li>
+
+  </ul>
+
+  <br>
+  <a th:href="@{/}">トップへ戻る</a>
+
+</body>
+
+</html>

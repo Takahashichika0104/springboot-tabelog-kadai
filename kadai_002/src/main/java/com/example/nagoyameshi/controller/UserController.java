@@ -6,9 +6,12 @@ import com.example.nagoyameshi.security.CustomUserDetails;
 import com.example.nagoyameshi.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -64,6 +67,7 @@ public class UserController {
       @Valid User user,
       BindingResult result,
       HttpServletRequest httpServletRequest,
+      HttpServletResponse httpServletResponse,
       Model model) {
 
     log.info("User update request received for email: {}", user.getEmail());
@@ -91,6 +95,10 @@ public class UserController {
             .path("/register")
             .toUriString();
         signupEventPublisher.publishSignupEvent(updatedUser, requestUrl);
+        new SecurityContextLogoutHandler().logout(
+          httpServletRequest,
+          httpServletResponse,
+          SecurityContextHolder.getContext().getAuthentication());
         model.addAttribute("successMessage",
             "会員情報を更新しました。メールアドレスが変更されたため、再度メール認証が必要です。ご入力いただいたメールアドレスに認証メールを送信しました。");
         return "redirect:/login";

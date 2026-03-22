@@ -51,4 +51,26 @@ public class UserService {
         user.setEnabled(true);
         userRepository.save(user);
     }
+
+    // ユーザー情報更新
+    @Transactional
+    public User update(Integer userId, User newUserData, boolean emailChanged) {
+        User existingUser = userRepository.findById(userId).orElse(null);
+
+        if (existingUser == null) {
+            throw new RuntimeException("ユーザーが見つかりません");
+        }
+
+        // ユーザー情報を更新
+        existingUser.setName(newUserData.getName());
+        existingUser.setEmail(newUserData.getEmail());
+        existingUser.setPassword(newUserData.getPassword());
+
+        // メールアドレスが変更された場合、再認証が必要な状態にする
+        if (emailChanged) {
+            existingUser.setEnabled(false);
+        }
+
+        return userRepository.save(existingUser);
+    }
 }

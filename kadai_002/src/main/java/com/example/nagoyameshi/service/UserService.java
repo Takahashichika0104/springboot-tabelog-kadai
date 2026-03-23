@@ -6,6 +6,7 @@ import com.example.nagoyameshi.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,9 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     // ユーザー検索
@@ -41,6 +44,8 @@ public class UserService {
     // 会員登録
     public void register(User user) {
 
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userRepository.save(user);
 
     }
@@ -64,7 +69,7 @@ public class UserService {
         // ユーザー情報を更新
         existingUser.setName(newUserData.getName());
         existingUser.setEmail(newUserData.getEmail());
-        existingUser.setPassword(newUserData.getPassword());
+        existingUser.setPassword(passwordEncoder.encode(newUserData.getPassword()));
 
         // メールアドレスが変更された場合、再認証が必要な状態にする
         if (emailChanged) {

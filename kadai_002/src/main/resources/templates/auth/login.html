@@ -10,6 +10,14 @@
 
   <h1>ログイン</h1>
 
+  <div th:if="${successMessage}" style="color: green; border: 1px solid green; padding: 10px; margin-bottom: 20px;">
+    <p th:text="${successMessage}"></p>
+  </div>
+
+  <div th:if="${errorMessage}" style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
+    <p th:text="${errorMessage}"></p>
+  </div>
+
   <form th:action="@{/login}" method="post">
 
     <div>
@@ -27,6 +35,10 @@
     </button>
 
   </form>
+
+  <p>
+    <a th:href="@{/password-reset/request}">パスワードを忘れた方はこちら</a>
+  </p>
 
   <a th:href="@{/register}">
     会員登録はこちら

@@ -78,4 +78,11 @@ public class UserService {
 
         return userRepository.save(existingUser);
     }
+
+    // パスワード更新
+    @Transactional
+    public void updatePassword(User user, String rawPassword) {
+        user.setPassword(passwordEncoder.encode(rawPassword));
+        userRepository.save(user);
+    }
 }

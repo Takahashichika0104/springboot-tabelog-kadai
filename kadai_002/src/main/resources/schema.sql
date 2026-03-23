@@ -86,6 +86,24 @@ CREATE TABLE IF NOT EXISTS email_verification_tokens (
 );
 
 -- =========================
+-- パスワード再設定トークン
+-- =========================
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(255) NOT NULL,
+    expires_at DATETIME NOT NULL,
+    used BOOLEAN DEFAULT FALSE,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_password_reset_token_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+-- =========================
 -- 予約
 -- =========================
 CREATE TABLE IF NOT EXISTS reservations (

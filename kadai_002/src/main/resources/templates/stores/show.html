@@ -33,6 +33,13 @@
 
   <p>
 
+    カテゴリ:
+    <span th:text="${store.category != null ? store.category.name : '未分類'}"></span>
+
+  </p>
+
+  <p>
+
     価格帯:
     ¥ <span th:text="${store.minPrice + '円〜' + store.maxPrice + '円'}"></span>
 

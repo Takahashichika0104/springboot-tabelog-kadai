@@ -38,6 +38,13 @@
 
   <p>
 
+    カテゴリ:
+    <span th:text="${store.category != null ? store.category.name : '未分類'}"></span>
+
+  </p>
+
+  <p>
+
     ¥ <span th:text="${store.minPrice + '〜' + store.maxPrice}"></span>
 
   </p>

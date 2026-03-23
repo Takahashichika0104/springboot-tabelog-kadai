@@ -16,6 +16,11 @@
 
     <p th:text="${store.address}"></p>
 
+    <p>
+      カテゴリ:
+      <span th:text="${store.category != null ? store.category.name : '未分類'}"></span>
+    </p>
+
     <a th:href="@{/stores/{id}(id=${store.id})}">
       詳細
     </a>

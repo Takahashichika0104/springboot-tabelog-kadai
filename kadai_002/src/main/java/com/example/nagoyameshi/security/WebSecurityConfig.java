@@ -35,6 +35,7 @@ public class WebSecurityConfig {
                                                                 "/password-reset/**",
                                                                 "/register/**",
                                                                 "/css/**",
+                                                                "/js/**",
                                                                 "/images/**")
                                                 .permitAll()
 

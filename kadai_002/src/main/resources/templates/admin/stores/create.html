@@ -10,7 +10,7 @@
 
   <h1>店舗登録</h1>
 
-  <form th:action="@{/admin/stores}" th:object="${store}" method="post">
+  <form th:action="@{/admin/stores}" th:object="${store}" method="post" enctype="multipart/form-data">
 
     店舗名
     <input type="text" th:field="*{name}">
@@ -39,6 +39,11 @@
 
     </select>
 
+    店舗画像
+    <input type="file" class="form-control" th:field="*{image}">
+    <!--店舗画像プレビュー-->
+    <div class="row" id="imagePreview"></div>
+
     <button type="submit">
       登録
     </button>
@@ -48,6 +53,8 @@
   <a th:href="@{/admin/stores}">
     戻る
   </a>
+
+  <script th:src="@{/js/preview.js}"></script>
 
 </body>
 

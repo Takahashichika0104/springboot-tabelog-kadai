@@ -44,6 +44,10 @@
 
   </table>
 
+    <!-- 画像表示 -->
+  <img th:if="${store.imagePath}" th:src="@{/storage/__${store.imagePath}__}" alt="店舗画像">
+  <img th:unless="${store.imagePath}" th:src="@{/images/noImage.png}" alt="NO IMAGE">
+
   <br>
 
   <a th:href="@{/admin/stores/{id}/edit(id=${store.id})}">

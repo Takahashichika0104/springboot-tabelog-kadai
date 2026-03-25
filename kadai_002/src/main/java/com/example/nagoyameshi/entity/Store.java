@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -57,4 +58,7 @@ public class Store {
 
     @OneToMany(mappedBy = "store")
     private List<Favorite> favorites;
+
+    @Transient
+    private MultipartFile image;
 }

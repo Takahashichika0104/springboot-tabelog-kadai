@@ -17,7 +17,12 @@
     メール
     <input type="email" th:field="*{email}">
 
-
+    ロール
+    <select th:field="*{role}">
+      <option value="">-- 選択 --</option>
+      <option value="USER">ユーザー</option>
+      <option value="ADMIN">管理者</option>
+    </select>
 
     <button type="submit">
       更新

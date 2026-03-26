@@ -73,16 +73,21 @@ public class AdminUserController {
     @PostMapping("/{id}/update")
     public String update(
             @PathVariable Integer id,
-            @Valid @ModelAttribute User user,
-            BindingResult result) {
+            @ModelAttribute User user,
+            Model model) {
 
-        if (result.hasErrors()) {
-            return "admin/users/edit";
+        User existingUser = userService.findById(id);
+
+        if (existingUser == null) {
+            return "redirect:/admin/users";
         }
 
-        user.setId(id);
+        // 既存ユーザーの情報を更新
+        existingUser.setName(user.getName());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setRole(user.getRole());
 
-        userService.save(user);
+        userService.save(existingUser);
 
         return "redirect:/admin/users";
     }

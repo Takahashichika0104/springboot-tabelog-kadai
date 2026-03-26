@@ -27,7 +27,15 @@
       <td th:text="${user.email}"></td>
     </tr>
 
+    <tr>
+      <th>会員種別</th>
+      <td th:text="${user.membershipType == 'PREMIUM'} ? '有料会員' : '無料会員'"></td>
+    </tr>
 
+    <tr>
+      <th>権限</th>
+      <td th:text="${user.role == 'ADMIN'} ? '管理者' : '一般会員'"></td>
+    </tr>
 
   </table>
 

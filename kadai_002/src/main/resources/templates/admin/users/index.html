@@ -27,6 +27,8 @@
       <th>ID</th>
       <th>名前</th>
       <th>メール</th>
+      <th>会員種別</th>
+      <th>権限</th>
       <th>操作</th>
     </tr>
 
@@ -41,6 +43,10 @@
 
       <td th:text="${user.email}"></td>
 
+      <td th:text="${user.membershipType == 'PREMIUM'} ? '有料会員' : '無料会員'"></td>
+
+      <td th:text="${user.role == 'ADMIN'} ? '管理者' : '一般会員'"></td>
+
       <td>
 
         <a th:href="@{/admin/users/{id}/edit(id=${user.id})}">
@@ -52,6 +58,38 @@
     </tr>
 
   </table>
+
+  <br>
+
+  <!-- ページネーション -->
+  <div>
+    <span th:text="${userPage.number + 1} + ' / ' + ${userPage.totalPages} + ' ページ'"></span>
+    <br>
+
+    <!-- 最初のページへ -->
+    <a th:if="${!userPage.first}"
+       th:href="@{/admin/users(page=0, keyword=${keyword})}">
+      &laquo; 最初
+    </a>
+
+    <!-- 前のページへ -->
+    <a th:if="${!userPage.first}"
+       th:href="@{/admin/users(page=${userPage.number - 1}, keyword=${keyword})}">
+      &lsaquo; 前へ
+    </a>
+
+    <!-- 次のページへ -->
+    <a th:if="${!userPage.last}"
+       th:href="@{/admin/users(page=${userPage.number + 1}, keyword=${keyword})}">
+      次へ &rsaquo;
+    </a>
+
+    <!-- 最後のページへ -->
+    <a th:if="${!userPage.last}"
+       th:href="@{/admin/users(page=${userPage.totalPages - 1}, keyword=${keyword})}">
+      最後 &raquo;
+    </a>
+  </div>
 
   <br>
   <form th:action="@{/logout}" method="post" style="margin-top: 20px;">

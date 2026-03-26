@@ -53,6 +53,11 @@
     戻る
   </a>
 
+  <br>
+  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
+    <button type="submit">ログアウト</button>
+  </form>
+
   <script th:src="@{/js/preview.js}"></script>
   <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"

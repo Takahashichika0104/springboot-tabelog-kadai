@@ -10,6 +10,8 @@ import com.example.nagoyameshi.security.CustomUserDetails;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 
 import org.springframework.stereotype.Controller;
 
@@ -47,7 +49,7 @@ public class StoreController {
       @RequestParam(required = false) Integer categoryId,
       @RequestParam(required = false) Integer priceMin,
       @RequestParam(required = false) Integer priceMax,
-
+      @PageableDefault(size = 10, sort = "id", direction = Direction.ASC)
       Pageable pageable,
       Model model) {
 

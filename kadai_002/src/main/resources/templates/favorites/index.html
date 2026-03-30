@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <meta charset="UTF-8">
     <title>お気に入り一覧</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h2>お気に入り一覧</h2>
+<div th:insert="~{/layout/header :: header}"></div>
 
-<table>
+<div class="main-content">
+
+<h2 class="page-title">お気に入り一覧</h2>
+
+<table class="info-table">
     <tr>
         <th>店舗名</th>
         <th>詳細</th>
@@ -24,7 +31,7 @@
 </table>
 
 <!-- ページネーション -->
-<div>
+<div class="pagination">
     <a th:if="${favoritePage.hasPrevious()}"
        th:href="@{/favorites(page=${favoritePage.number - 1})}">
         前へ
@@ -37,9 +44,8 @@
         次へ
     </a>
 </div>
-<br>
-<form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-  <button type="submit">ログアウト</button>
-</form>
+
+</div>
+
 </body>
 </html>

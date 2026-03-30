@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>ログイン</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>ログイン</h1>
+<div th:insert="~{/layout/header :: header}"></div>
+
+<div class="main-content">
+  <h2 class="page-title">ログイン</h2>
 
   <div th:if="${successMessage}" style="color: green; border: 1px solid green; padding: 10px; margin-bottom: 20px;">
     <p th:text="${successMessage}"></p>
@@ -18,7 +22,7 @@
     <p th:text="${errorMessage}"></p>
   </div>
 
-  <form th:action="@{/login}" method="post">
+  <form th:action="@{/login}" method="post" class="form-group">
 
     <div>
       <label>メールアドレス</label>
@@ -30,7 +34,7 @@
       <input type="password" name="password">
     </div>
 
-    <button type="submit">
+    <button type="submit" class="btn-primary">
       ログイン
     </button>
 
@@ -43,6 +47,7 @@
   <a th:href="@{/register}">
     会員登録はこちら
   </a>
+</div>
 
 </body>
 

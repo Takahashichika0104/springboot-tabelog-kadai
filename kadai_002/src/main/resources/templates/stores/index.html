@@ -1,61 +1,102 @@
-<h1>店舗一覧</h1>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<form method="get">
+<head>
+  <meta charset="UTF-8">
+  <title>店舗一覧</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
 
-  店舗名
-  <input type="text" name="keyword" th:value="${keyword}">
+<body>
 
-  カテゴリ
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <select name="categoryId">
+  <div class="main-content">
 
-    <option value="">すべて</option>
+    <h1 class="page-title">店舗一覧</h1>
 
-    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}">
-    </option>
+    <form method="get" class="search-box">
 
-  </select>
+      <div class="form-group">
+        <label>店舗名</label>
+        <input type="text" name="keyword" th:value="${keyword}">
+      </div>
 
-  予算
+      <div class="form-group">
+        <label>カテゴリ</label>
+        <select name="categoryId">
+          <option value="">すべて</option>
+          <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+        </select>
+      </div>
 
-  <input type="number" name="priceMin">
-  〜
-  <input type="number" name="priceMax">
+      <div class="form-group price-range">
+        <label>予算</label>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <input type="number" name="priceMin" placeholder="最小">
+          <span>〜</span>
+          <input type="number" name="priceMax" placeholder="最大">
+        </div>
+      </div>
 
-  <button type="submit">
-    検索
-  </button>
+      <button type="submit" class="btn-search">検索</button>
 
-</form>
+    </form>
 
-<hr>
+    <p class="result-count" th:if="${stores != null && stores.content != null}">
+      <span th:text="${stores.totalElements}"></span>件の店舗が見つかりました
+    </p>
 
-<div th:each="store : ${stores.content}">
+    <div class="store-grid">
 
-  <h3 th:text="${store.name}"></h3>
+      <div class="store-card" th:each="store : ${stores.content}">
 
-  <p th:text="${store.address}"></p>
+        <!-- 画像表示 -->
+        <img th:if="${store.imagePath}" th:src="@{/storage/__${store.imagePath}__}" alt="店舗画像" class="store-card__img">
+        <img th:unless="${store.imagePath}" th:src="@{/images/noImage.png}" alt="NO IMAGE" class="store-card__img">
 
-  <p>
+        <div class="store-card__body">
 
-    カテゴリ:
-    <span th:text="${store.category != null ? store.category.name : '未分類'}"></span>
+          <div class="store-card__header">
+            <h3 class="store-card__name" th:text="${store.name}"></h3>
+          </div>
 
-  </p>
+          <p class="store-card__meta">
+            <span th:text="${store.category != null ? store.category.name : '未分類'}"></span>
+            <span th:text="${store.address}"></span>
+          </p>
 
-  <p>
+          <p class="store-card__price">
+            ¥ <span th:text="${store.minPrice + '〜' + store.maxPrice}"></span>
+          </p>
 
-    ¥ <span th:text="${store.minPrice + '〜' + store.maxPrice}"></span>
+          <a th:href="@{/stores/{id}(id=${store.id})}" class="btn-detail">詳細を見る</a>
 
-  </p>
+        </div>
 
-  <a th:href="@{/stores/{id}(id=${store.id})}">
-    詳細
-  </a>
+      </div>
 
-</div>
+    </div>
 
-<br>
-<form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-  <button type="submit">ログアウト</button>
-</form>
+    <!-- ページネーション -->
+    <div class="pagination" th:if="${stores != null && stores.getTotalPages() > 1}">
+      <a th:if="${stores.hasPrevious()}" th:href="@{/stores(page=${stores.getNumber() - 1}, keyword=${keyword}, categoryId=${categoryId}, priceMin=${priceMin}, priceMax=${priceMax})}">
+        前へ
+      </a>
+
+      <span th:each="i : ${#numbers.sequence(0, stores.getTotalPages() - 1)}">
+        <span th:if="${i == stores.getNumber()}" class="current" th:text="${i + 1}"></span>
+        <a th:if="${i != stores.getNumber()}" th:href="@{/stores(page=${i}, keyword=${keyword}, categoryId=${categoryId}, priceMin=${priceMin}, priceMax=${priceMax})}" th:text="${i + 1}"></a>
+      </span>
+
+      <a th:if="${stores.hasNext()}" th:href="@{/stores(page=${stores.getNumber() + 1}, keyword=${keyword}, categoryId=${categoryId}, priceMin=${priceMin}, priceMax=${priceMax})}">
+        次へ
+      </a>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

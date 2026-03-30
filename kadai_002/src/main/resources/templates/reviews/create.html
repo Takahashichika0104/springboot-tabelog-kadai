@@ -1,35 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <meta charset="UTF-8">
     <title>レビュー投稿</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h2 th:text="${store.name} + ' のレビュー投稿'"></h2>
+<div th:insert="~{/layout/header :: header}"></div>
 
-<form th:action="@{/reviews/create}" method="post"
-      th:object="${review}">
+<div class="main-content">
+    <h2 class="page-title" th:text="${store.name} + ' のレビュー投稿'"></h2>
 
-    <input type="hidden" th:field="*{store.id}">
+    <form th:action="@{/reviews/create}" method="post"
+          th:object="${review}" class="form-group">
 
-    <div>
-        <label>評価（1〜5）</label>
-        <input type="number" th:field="*{rating}" min="1" max="5">
-    </div>
+        <input type="hidden" th:field="*{store.id}">
 
-    <div>
-        <label>コメント</label>
-        <textarea th:field="*{comment}"></textarea>
-    </div>
+        <div>
+            <label>評価（1〜5）</label>
+            <input type="number" th:field="*{rating}" min="1" max="5">
+        </div>
 
-    <button type="submit">投稿</button>
+        <div>
+            <label>コメント</label>
+            <textarea th:field="*{comment}"></textarea>
+        </div>
 
-</form>
+        <button type="submit" class="btn-primary">投稿</button>
 
-<br>
-<form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-  <button type="submit">ログアウト</button>
-</form>
+    </form>
+</div>
 
 </body>
 </html>

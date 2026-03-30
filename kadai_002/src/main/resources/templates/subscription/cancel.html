@@ -1,39 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>有料会員解約</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>有料会員解約</h1>
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <div th:if="${successMessage}" style="color: green; border: 1px solid green; padding: 10px; margin-bottom: 20px;">
-    <p th:text="${successMessage}"></p>
+  <div class="main-content">
+
+    <h1 class="page-title">有料会員解約</h1>
+
+    <div th:if="${successMessage}" style="color: green; border: 1px solid green; padding: 10px; margin-bottom: 20px;">
+      <p th:text="${successMessage}"></p>
+    </div>
+
+    <div th:if="${errorMessage}" style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
+      <p th:text="${errorMessage}"></p>
+    </div>
+
+    <p>有料会員を解約すると、予約やレビュー投稿などの機能がご利用いただけなくなります。</p>
+
+    <p>解約後は無料会員となり、有料会員向け機能は利用できません。</p>
+
+    <form th:action="@{/membership/cancel}" method="post" class="form-group">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+      <button type="submit" class="btn-primary">有料会員を解約する</button>
+    </form>
+
+    <br>
+    <a th:href="@{/member-menu}" class="back-link">会員メニューへ戻る</a>
+
   </div>
-
-  <div th:if="${errorMessage}" style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
-    <p th:text="${errorMessage}"></p>
-  </div>
-
-  <p>有料会員を解約すると、予約やレビュー投稿などの機能がご利用いただけなくなります。</p>
-
-  <p>解約後は無料会員となり、有料会員向け機能は利用できません。</p>
-
-  <form th:action="@{/membership/cancel}" method="post">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <button type="submit">有料会員を解約する</button>
-  </form>
-
-  <br>
-  <a th:href="@{/member-menu}">会員メニューへ戻る</a>
-
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
 
 </body>
 

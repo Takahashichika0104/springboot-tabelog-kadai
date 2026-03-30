@@ -5,53 +5,50 @@
 <head>
   <meta charset="UTF-8">
   <title>会員メニュー</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>会員メニュー</h1>
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <ul>
+  <div class="main-content">
 
-    <li>
-      <a th:href="@{/mypage}">会員情報確認</a>
-    </li>
+    <div class="menu-card">
+      <h2>会員メニュー</h2>
+      <ul class="menu-list">
+        <li>
+          <a th:href="@{/mypage}">会員情報確認</a>
+        </li>
+        <li>
+          <a th:href="@{/users/edit}">会員情報編集</a>
+        </li>
+        <li th:if="${user.membershipType == 'FREE'}">
+          <a th:href="@{/membership}">有料会員登録（Stripe）</a>
+        </li>
+        <li th:if="${user.membershipType == 'PREMIUM'}">
+          <a th:href="@{/membership/cancel}">有料会員解約（Stripe）</a>
+        </li>
+        <li th:if="${user.membershipType == 'PREMIUM'}">
+          <a th:href="@{/credit-card/edit}">クレジットカード情報編集（Stripe）</a>
+        </li>
+        <li>
+          <a th:href="@{/reservations}">予約一覧</a>
+        </li>
+        <li>
+          <a th:href="@{/favorites}">お気に入り一覧</a>
+        </li>
+      </ul>
+    </div>
 
-    <li>
-      <a th:href="@{/users/edit}">会員情報編集</a>
-    </li>
+    <div style="display: flex; gap: 12px; align-items: center; padding: 20px 0;">
+      <a th:href="@{/}" class="back-link">トップへ戻る</a>
+      <form th:action="@{/logout}" method="post" style="margin: 0;">
+        <button type="submit" class="btn-primary">ログアウト</button>
+      </form>
+    </div>
 
-    <!-- 無料会員の場合：有料会員登録リンクを表示 -->
-    <li th:if="${user.membershipType == 'FREE'}">
-      <a th:href="@{/membership}">有料会員登録（Stripe）</a>
-    </li>
-
-    <!-- 有料会員の場合：解約とカード情報編集リンクを表示 -->
-    <li th:if="${user.membershipType == 'PREMIUM'}">
-      <a th:href="@{/membership/cancel}">有料会員解約（Stripe）</a>
-    </li>
-
-    <li th:if="${user.membershipType == 'PREMIUM'}">
-      <a th:href="@{/credit-card/edit}">クレジットカード情報編集（Stripe）</a>
-    </li>
-
-    <li>
-      <a th:href="@{/reservations}">予約一覧</a>
-    </li>
-
-    <li>
-      <a th:href="@{/favorites}">お気に入り一覧</a>
-    </li>
-
-  </ul>
-
-  <br>
-  <a th:href="@{/}">トップへ戻る</a>
-
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
+  </div>
 
 </body>
 

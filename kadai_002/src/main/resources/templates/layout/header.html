@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+
+<header th:fragment="header" class="site-header">
+
+  <a th:href="@{/}" class="logo">NAGOYA MESHI</a>
+
+  <div class="header-search">
+    <form th:action="@{/stores}" method="get">
+      <input type="text" name="keyword" placeholder="店舗名・エリアで検索…">
+    </form>
+  </div>
+
+  <nav class="header-nav">
+
+    <a th:href="@{/stores}">店舗一覧</a>
+
+    <a th:href="@{/favorites}" sec:authorize="isAuthenticated()">お気に入り</a>
+
+    <a th:href="@{/reservations}" sec:authorize="isAuthenticated()">予約一覧</a>
+
+    <a th:href="@{/member-menu}" sec:authorize="isAuthenticated()">マイページ</a>
+
+    <span sec:authorize="isAuthenticated()">
+      <span class="user-name" sec:authentication="principal.user.name">ユーザー名</span>
+      <form th:action="@{/logout}" method="post" style="display:inline;">
+        <button type="submit" class="btn-logout">ログアウト</button>
+      </form>
+    </span>
+
+    <a th:href="@{/login}" sec:authorize="!isAuthenticated()">ログイン</a>
+
+  </nav>
+
+</header>
+
+</body>
+</html>

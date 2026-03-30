@@ -17,6 +17,12 @@
 
     <a th:href="@{/stores}">店舗一覧</a>
 
+    <a th:href="@{/admin/stores}" sec:authorize="hasRole('ADMIN')">管理者用店舗一覧</a>
+
+    <a th:href="@{/admin/users}" sec:authorize="hasRole('ADMIN')">管理者用会員一覧</a>
+
+    <a th:href="@{/admin/categories}" sec:authorize="hasRole('ADMIN')">管理者用カテゴリ一覧</a>
+
     <a th:href="@{/favorites}" sec:authorize="isAuthenticated()">お気に入り</a>
 
     <a th:href="@{/reservations}" sec:authorize="isAuthenticated()">予約一覧</a>

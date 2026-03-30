@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>会員詳細</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>会員詳細</h1>
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <table border="1">
+  <div class="main-content">
+
+  <h2 class="page-title">会員詳細</h2>
+
+  <table class="info-table">
 
     <tr>
       <th>ID</th>
@@ -39,20 +44,17 @@
 
   </table>
 
-  <a th:href="@{/admin/users/{id}/edit(id=${user.id})}">
+  <a th:href="@{/admin/users/{id}/edit(id=${user.id})}" class="btn-primary">
     編集
   </a>
 
   <br><br>
 
-  <a th:href="@{/admin/users}">
+  <a th:href="@{/admin/users}" class="back-link">
     一覧に戻る
   </a>
 
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
+  </div>
 
 </body>
 

@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>店舗登録</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>店舗登録</h1>
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <form th:action="@{/admin/stores}" th:object="${store}" method="post" enctype="multipart/form-data">
+  <div class="main-content">
+
+  <h2 class="page-title">店舗登録</h2>
+
+  <form th:action="@{/admin/stores}" th:object="${store}" method="post" enctype="multipart/form-data" class="form-group">
 
     店舗名
     <input type="text" th:field="*{name}">
@@ -44,20 +49,17 @@
     <!--店舗画像プレビュー-->
     <div class="row" id="imagePreview"></div>
 
-    <button type="submit">
+    <button type="submit" class="btn-primary">
       登録
     </button>
 
   </form>
 
-  <a th:href="@{/admin/stores}">
+  <a th:href="@{/admin/stores}" class="back-link">
     戻る
   </a>
 
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
+  </div>
 
   <script th:src="@{/js/preview.js}"></script>
 

@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>カテゴリ一覧</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>カテゴリ一覧</h1>
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <a th:href="@{/admin/categories/create}">
+  <div class="main-content">
+
+  <h2 class="page-title">カテゴリ一覧</h2>
+
+  <a th:href="@{/admin/categories/create}" class="btn-primary">
     カテゴリ登録
   </a>
 
-  <form th:action="@{/admin/categories}" method="get">
+  <form th:action="@{/admin/categories}" method="get" class="search-box">
 
     検索
     <input type="text" name="keyword" th:value="${keyword}">
@@ -35,13 +40,13 @@
     <!-- ページ指定（検索・並び替え時は先頭に戻す） -->
     <input type="hidden" name="page" value="0">
 
-    <button type="submit">
+    <button type="submit" class="btn-search">
       検索
     </button>
 
   </form>
 
-  <table border="1">
+  <table class="info-table">
 
     <tr>
       <th>ID</th>
@@ -64,7 +69,7 @@
         <form th:action="@{/admin/categories/{id}/delete(id=${category.id})}" method="post" style="display:inline"
           onsubmit="return confirm('このカテゴリを削除しますか？')">
 
-          <button type="submit">
+          <button type="submit" class="btn-secondary">
             削除
           </button>
 
@@ -77,7 +82,7 @@
   </table>
 
   <!-- ページング -->
-  <div>
+  <div class="pagination">
     <span th:text="'ページ ' + (${categories.number}+1) + ' / ' + ${categories.totalPages}"></span>
 
     <span th:if="${categories.hasPrevious()}">
@@ -95,10 +100,9 @@
     </span>
   </div>
 
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
+  </div>
+
+  </div>
 
 </body>
 

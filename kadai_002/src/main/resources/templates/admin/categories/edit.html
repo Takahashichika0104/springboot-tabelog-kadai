@@ -1,34 +1,36 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>カテゴリ編集</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>カテゴリ編集</h1>
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <form th:action="@{/admin/categories/{id}/update(id=${category.id})}" th:object="${category}" method="post">
+  <div class="main-content">
+
+  <h2 class="page-title">カテゴリ編集</h2>
+
+  <form th:action="@{/admin/categories/{id}/update(id=${category.id})}" th:object="${category}" method="post" class="form-group">
 
     カテゴリ名
     <input type="text" th:field="*{name}">
 
-    <button type="submit">
+    <button type="submit" class="btn-primary">
       更新
     </button>
 
   </form>
 
-  <a th:href="@{/admin/categories}">
+  <a th:href="@{/admin/categories}" class="back-link">
     戻る
   </a>
 
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
+  </div>
 
 </body>
 

@@ -1,27 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>会員一覧</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>会員一覧</h1>
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <form th:action="@{/admin/users}" method="get">
+  <div class="main-content">
+
+  <h2 class="page-title">会員一覧</h2>
+
+  <form th:action="@{/admin/users}" method="get" class="search-box">
 
     メール検索
     <input type="text" name="keyword" th:value="${keyword}">
 
-    <button type="submit">
+    <button type="submit" class="btn-search">
       検索
     </button>
 
   </form>
 
-  <table border="1">
+  <table class="info-table">
 
     <tr>
       <th>ID</th>
@@ -62,9 +67,8 @@
   <br>
 
   <!-- ページネーション -->
-  <div>
+  <div class="pagination">
     <span th:text="${userPage.number + 1} + ' / ' + ${userPage.totalPages} + ' ページ'"></span>
-    <br>
 
     <!-- 最初のページへ -->
     <a th:if="${!userPage.first}"
@@ -91,11 +95,9 @@
     </a>
   </div>
 
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
+  </div>
 
+  </div>
   </body>
 
 </html>

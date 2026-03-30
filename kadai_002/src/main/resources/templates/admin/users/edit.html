@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>会員詳細</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
-  <h1>会員編集</h1>
 
-  <form th:action="@{/admin/users/{id}/update(id=${user.id})}" th:object="${user}" method="post">
+  <div th:insert="~{/layout/header :: header}"></div>
+
+  <div class="main-content">
+  <h2 class="page-title">会員編集</h2>
+
+  <form th:action="@{/admin/users/{id}/update(id=${user.id})}" th:object="${user}" method="post" class="form-group">
 
     名前
     <input type="text" th:field="*{name}">
@@ -24,20 +29,17 @@
       <option value="ADMIN">管理者</option>
     </select>
 
-    <button type="submit">
+    <button type="submit" class="btn-primary">
       更新
     </button>
 
   </form>
 
-  <a th:href="@{/admin/users}">
+  <a th:href="@{/admin/users}" class="back-link">
     戻る
   </a>
 
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
+  </div>
 
 </body>
 

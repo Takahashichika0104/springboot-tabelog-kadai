@@ -1,16 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>店舗詳細</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>店舗詳細</h1>
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <table border="1">
+  <div class="main-content">
+
+  <h2 class="page-title">店舗詳細</h2>
+
+  <table class="info-table">
 
     <tr>
       <th>ID</th>
@@ -45,19 +50,19 @@
   </table>
 
     <!-- 画像表示 -->
-  <img th:if="${store.imagePath}" th:src="@{/storage/__${store.imagePath}__}" alt="店舗画像">
-  <img th:unless="${store.imagePath}" th:src="@{/images/noImage.png}" alt="NO IMAGE">
+  <img th:if="${store.imagePath}" th:src="@{/storage/__${store.imagePath}__}" alt="店舗画像" class="store-hero">
+  <img th:unless="${store.imagePath}" th:src="@{/images/noImage.png}" alt="NO IMAGE" class="store-hero">
 
   <br>
 
-  <a th:href="@{/admin/stores/{id}/edit(id=${store.id})}">
+  <a th:href="@{/admin/stores/{id}/edit(id=${store.id})}" class="btn-primary">
     編集
   </a>
 
   <form th:action="@{/admin/stores/{id}/delete(id=${store.id})}" method="post" style="display:inline"
     onsubmit="return confirm('この店舗を削除しますか？')">
 
-    <button type="submit">
+    <button type="submit" class="btn-secondary">
       削除
     </button>
 
@@ -65,14 +70,11 @@
 
   <br><br>
 
-  <a th:href="@{/admin/stores}">
+  <a th:href="@{/admin/stores}" class="back-link">
     一覧に戻る
   </a>
 
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
+  </div>
 
 </body>
 

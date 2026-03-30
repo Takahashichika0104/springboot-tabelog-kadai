@@ -1,21 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <meta charset="UTF-8">
   <title>店舗一覧</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
 
-  <h1>店舗一覧</h1>
+  <div th:insert="~{/layout/header :: header}"></div>
 
-  <a th:href="@{/admin/stores/create}">
+  <div class="main-content">
+
+  <h2 class="page-title">店舗一覧</h2>
+
+  <a th:href="@{/admin/stores/create}" class="btn-primary">
     店舗登録
   </a>
 
   <!-- 検索フォーム -->
-  <form th:action="@{/admin/stores}" method="get">
+  <form th:action="@{/admin/stores}" method="get" class="search-box">
 
     検索
     <input type="text" name="keyword" th:value="${keyword}">
@@ -33,13 +38,13 @@
 
     </select>
 
-    <button type="submit">
+    <button type="submit" class="btn-search">
       検索
     </button>
 
   </form>
 
-  <table border="1">
+  <table class="info-table">
 
     <thead>
       <tr>
@@ -87,7 +92,7 @@
 
 
   <!-- ページネーション -->
-  <div>
+  <div class="pagination">
 
     <span th:if="${storePage.hasPrevious()}">
       <a th:href="@{/admin/stores(page=${currentPage-1},keyword=${keyword},sort=${sort})}">
@@ -110,10 +115,9 @@
 
   </div>
 
-  <br>
-  <form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">ログアウト</button>
-  </form>
+  </div>
+
+  </div>
 
 </body>
 

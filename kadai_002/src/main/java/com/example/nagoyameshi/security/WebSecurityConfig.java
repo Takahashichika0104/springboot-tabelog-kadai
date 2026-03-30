@@ -22,7 +22,7 @@ public class WebSecurityConfig {
                                 .formLogin(login -> login
                                                 .loginPage("/login") // カスタムログイン画面
                                                 .loginProcessingUrl("/login")
-                                                .defaultSuccessUrl("/", true)
+                                                .defaultSuccessUrl("/stores", true)
                                                 .permitAll())
 
                                 .logout(logout -> logout
@@ -31,12 +31,13 @@ public class WebSecurityConfig {
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers(
                                                                 "/",
+                                                                "/stores",
                                                                 "/login",
                                                                 "/password-reset/**",
                                                                 "/register/**",
                                                                 "/css/**",
                                                                 "/js/**",
-                                                                "/images/**")
+                                                                "/storage/**")
                                                 .permitAll()
 
                                                 .requestMatchers("/mypage").authenticated()

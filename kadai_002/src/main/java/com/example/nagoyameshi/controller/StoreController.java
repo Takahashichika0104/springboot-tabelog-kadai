@@ -42,7 +42,7 @@ public class StoreController {
   }
 
   // 店舗一覧
-  @GetMapping("/stores")
+  @GetMapping({"/stores", "/"})
   public String index(
 
       @RequestParam(required = false) String keyword,

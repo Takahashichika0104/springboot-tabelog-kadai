@@ -9,6 +9,7 @@ import com.example.nagoyameshi.service.StoreService;
 import com.example.nagoyameshi.repository.ReservationRepository;
 
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -20,17 +21,15 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/reservations")
+@AllArgsConstructor
 public class ReservationController {
 
   private final ReservationService reservationService;
   private final StoreService storeService;
-  public ReservationController(
-      ReservationService reservationService,
-      StoreService storeService, ReservationRepository reservationRepository) {
+  private final ReservationRepository reservationRepository;
 
-    this.reservationService = reservationService;
-    this.storeService = storeService;
-  }
+
+
 
   // 店舗詳細 → 予約確認画面
   @PostMapping("/confirm")

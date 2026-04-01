@@ -65,7 +65,7 @@
           <a th:href="@{/admin/stores/{id}(id=${store.id})}" th:text="${store.name}">
           </a>
         </td>
-        <td th:text="${store.category.name}"></td>
+        <td th:text="${store.category != null ? store.category.name : '未分類'}"></td>
         <td th:text="${store.address}"></td>
         <td th:text="${store.minPrice} + '～' + ${store.maxPrice}"></td>
 
